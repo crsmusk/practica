@@ -33,6 +33,8 @@ public class Usuario {
     
     @Column (unique = true, nullable = false)
     private String email;
+
+    private Boolean enabled;
     
     @ManyToMany 
     @JoinTable(
