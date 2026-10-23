@@ -1,6 +1,7 @@
 package com.universidad.proyecto.mapper;
 
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 import com.universidad.proyecto.dtos.salida.VentaDtoS;
 import com.universidad.proyecto.entidades.Venta;
@@ -16,5 +17,9 @@ public class VentaMapper {
                 .fecha(venta.getFechaVenta())
                 .total(venta.getTotalVenta())
                 .build();
+    }
+
+    public List<VentaDtoS> toVentaDtoSList(List<Venta> ventas) {
+        return ventas.stream().map(this::toVentaDtoS).toList();
     }
 }

@@ -1,0 +1,39 @@
+name: CI
+ on:
+  pull_request:
+    branches:
+      - main
+
+    jobs:
+      security:
+        name: Security review
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout del repositorio
+            uses: actions/checkout@v4
+          - name: buscar secretos expuestos
+            uses: trufflesecurity/trufflehog@main
+            with:
+              extra-args: only-verified
+    jobs:
+      build-and-test:
+        name:construir y probar
+        runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: ./
+        steps:
+          - name: configurar entorno
+            uses: actions/setup-java@v4
+            with:
+              distribution: temurin
+              java-version: '21'
+              cache: maven
+              cache-dependency-path: '**/pom.xml'
+          - name: dar permisos de ejecución
+            run: chmod +x mvnw
+          - name: construir el proyecto
+            run: ./mvnw compile -B -q
+          - name: ejecutar pruebas
+            run: ./mvnw test -B -q
+            

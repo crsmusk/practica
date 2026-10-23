@@ -15,7 +15,10 @@ public interface UsuarioRepo extends JpaRepository<Usuario, String> {
    
     @Query("SELECT new com.universidad.proyecto.dtos.salida.UsuarioDtoS(u.userName, u.email) FROM Usuario u ")
     List<UsuarioDtoS> findAllOrderByNombre();
-
-   
+     
+    @Query("""
+    SELECT  new com.universidad.proyecto.dtos.salida.UsuarioDtoS(u.userName, u.email) FROM Usuario u WHERE u.idUsuario = :id
+    """)
+    UsuarioDtoS findByiD(String id);
     
 }
