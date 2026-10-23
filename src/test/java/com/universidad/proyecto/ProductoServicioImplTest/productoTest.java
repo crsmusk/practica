@@ -69,7 +69,29 @@ public class productoTest {
         assertEquals(false, producto.getEstado());
 
     }
-    
+
+    @Test 
+    public void testActualizarProducto(){
+        ProductoDtoE pruebaDto = new ProductoDtoE("prueba", BigDecimal.ONE, "prueba",55);
+        when(productoRepo.findById("prueba")).thenReturn(Optional.of(new Producto()));
+
+        Categoria categoria = new Categoria();
+        categoria.setId("prueba");
+        categoria.setNombreCategoria("Categoria Prueba");
+
+        when(categoriaRepo.findById("prueba")).thenReturn(Optional.of(categoria));
+        
+        productoService.actualizar("prueba",pruebaDto);
+
+        verify(productoRepo).save(
+            argThat(producto -> 
+                producto.getNombreP().equals("prueba") &&
+                producto.getCategoria().getId().equals("prueba") &&
+                producto.getPrecio().equals(BigDecimal.ONE) &&
+                producto.getCantidad() == 55
+            ));
+    }
+
 
 
 }
