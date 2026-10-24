@@ -1,10 +1,10 @@
 name: CI
- on:
+on:
   pull_request:
     branches:
       - main
 
-    jobs:
+jobs:
       security:
         name: Security review
         runs-on: ubuntu-latest
@@ -15,9 +15,9 @@ name: CI
             uses: trufflesecurity/trufflehog@main
             with:
               extra-args: only-verified
-    jobs:
+
       build-and-test:
-        name:construir y probar
+        name: construir y probar
         runs-on: ubuntu-latest
         defaults:
           run:
