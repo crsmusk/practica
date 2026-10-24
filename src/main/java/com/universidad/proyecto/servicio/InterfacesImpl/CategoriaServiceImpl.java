@@ -3,6 +3,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.universidad.proyecto.entidades.Categoria;
+import com.universidad.proyecto.exceptionHandler.exceptions.categoriaNoEncontradaE;
 import com.universidad.proyecto.repositorio.CategorioRepo;
 import com.universidad.proyecto.servicio.interfaces.Icategoria;
 
@@ -29,12 +30,12 @@ public class CategoriaServiceImpl implements  Icategoria{
 
     @Override
     public void eliminar(String idCategoria) {
-     this.categoriaRepo.deleteById(idCategoria);
+       this.categoriaRepo.deleteById(idCategoria);
     }
 
     @Override
     public void actualizar(String idCategoria, String nuevoNombre) {
-       Categoria cat = this.categoriaRepo.findById(idCategoria).orElseThrow(()->new RuntimeException("Categoria no encontrada"));
+       Categoria cat = this.categoriaRepo.findById(idCategoria).orElseThrow(()->new categoriaNoEncontradaE());
        cat.setNombreCategoria(nuevoNombre);
        this.categoriaRepo.save(cat);
     }
