@@ -29,7 +29,7 @@ jobs:
               distribution: temurin
               java-version: '21'
               cache: maven
-              cache-dependency-path: '**/pom.xml'
+              cache-dependency-path: './pom.xml'
           - name: dar permisos de ejecución
             run: chmod +x mvnw
           - name: construir el proyecto
